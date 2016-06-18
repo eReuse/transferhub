@@ -1,0 +1,2 @@
+post_login_path: user
+disable_admin_login: 1

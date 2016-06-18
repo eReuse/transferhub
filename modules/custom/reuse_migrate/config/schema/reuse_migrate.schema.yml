@@ -1,0 +1,10 @@
+reuse_migrate.settings:
+  type: mapping
+  label: 'Reuse migrate settings'
+  mapping:
+    reuse_migrate:
+      type: mapping
+      mapping:
+        origin_db_host:
+          type: text
+          label: 'Host from D6 origin daba base'

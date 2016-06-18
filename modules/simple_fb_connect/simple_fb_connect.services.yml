@@ -1,0 +1,18 @@
+services:
+  simple_fb_connect.fb_manager:
+    class: Drupal\simple_fb_connect\SimpleFbConnectFbManager
+    arguments:
+      - @config.factory
+      - @logger.factory
+      - @session
+      - @event_dispatcher
+
+  simple_fb_connect.user_manager:
+    class: Drupal\simple_fb_connect\SimpleFbConnectUserManager
+    arguments:
+      - @config.factory
+      - @logger.factory
+      - @session
+      - @event_dispatcher
+      - @router.request_context
+      - @path.validator

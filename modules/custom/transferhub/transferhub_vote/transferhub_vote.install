@@ -1,0 +1,21 @@
+<?php
+
+    function transferhub_vote_schema()
+    {
+        $schema["transferhub_votes"] = array(
+            "fields" => array(
+                "uid" => array(
+                    "type" => "int",
+                    'not null' => TRUE
+                ),
+                "nid" => array(
+                    "type" => "int",
+                    'not null' => TRUE
+                ),
+            ),
+            "primary_key" => array("uid","nid"),
+        );
+
+        return $schema;
+    }
+

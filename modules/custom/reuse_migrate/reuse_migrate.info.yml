@@ -1,0 +1,6 @@
+name: Reuse migrate
+type: module
+description: 'Mòdul adhoc per a la migració de dades de la versió D6 de Reutilitza.cat'
+package: Reutilitza
+core: 8.x
+configure: reuse_migrate.form

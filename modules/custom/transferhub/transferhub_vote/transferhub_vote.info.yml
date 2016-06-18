@@ -1,0 +1,8 @@
+name: TransferHub Vote
+type: module
+description: 'Enables project voting'
+package: TransferHub
+core: 8.x
+#configure: reuse_migrate.form
+
+#dependencies: TransferHub Project, simple_fb_connect

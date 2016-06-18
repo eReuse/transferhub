@@ -1,0 +1,21 @@
+reuse_migrate.login:
+  path: '/transferhub/vote/login'
+  defaults:
+    _controller: '\Drupal\transferhub_vote\Controller\TransferHubVoteController::login'
+  requirements:
+    _permission: 'access content'
+
+transferhub_vote.redirect:
+  path: '/transferhub/vote/redirect'
+  defaults:
+    _controller: '\Drupal\transferhub_vote\Controller\TransferHubVoteController::redirect'
+  requirements:
+    _permission: 'access content'
+
+
+transferhub_vote.vote:
+  path: '/transferhub/vote/{projectNid}'
+  defaults:
+    _controller: '\Drupal\transferhub_vote\Controller\TransferHubVoteController::vote'
+  requirements:
+    _permission: 'access content'

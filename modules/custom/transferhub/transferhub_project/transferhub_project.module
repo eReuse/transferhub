@@ -1,0 +1,76 @@
+<?php
+
+function transferhub_project_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+{    
+    if ($form_id == "node_project_edit_form" || $form_id == "node_project_form")
+    {
+        //Receivers can not edit list of ALLOCATED or RECEIVED devices in project node edition form
+        $user = \Drupal::currentUser();
+        if ( !in_array("manager",array_values($user->getRoles())) &&  !in_array("administrator",array_values($user->getRoles())) )
+        {
+            //allocation/reception
+            unset($form["field_last_allocation"]);
+            unset($form["field_allocated_devices"]);
+            unset($form["field_last_reception"]);
+            unset($form["field_received_devices"]);
+
+            //project rating
+            unset($form["field_use"]);
+            unset($form["field_maintenance"]);
+            unset($form["field_questionary"]);
+            unset($form["field_reuse_return"]);
+        }
+    }
+}
+
+function transferhub_project_preprocess_page(&$variables) {
+
+    $route_match = \Drupal::routeMatch();
+
+    //Organization field display logic (in project edition forms)
+    if ( //is project add form
+        ($route_match->getRouteName() == "node.add" && $route_match->getRawParameter("node_type") == "project")
+        //is project edit form
+        || ($route_match->getRouteName() == "entity.node.edit_form" && $route_match->getParameter("node")->getType() == "project"))
+    {
+        $variables['#attached']['library'][] = 'transferhub_project/transferhub_project';
+    }
+
+    //Enables URL anchor navigation to subpages on load
+    if ($route_match->getParameter("node") && $route_match->getParameter("node")->getType() == "page" &&  !$variables["is_front"]) {
+        $variables['#attached']['library'][] = 'transferhub_project/anchor_scroll';
+    }
+
+    //Randomize advertisment display
+    if ($route_match->getParameter("node") && $route_match->getParameter("node")->getType() == "project") {
+        $variables['#attached']['library'][] = 'transferhub_project/random_advertisment';
+    }
+
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for user_register_form.
+ */
+function transferhub_project_form_user_register_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+    $form['account']['name']['#access'] = FALSE;
+    $random = new \Drupal\Component\Utility\Random();
+    $form['account']['name']['#default_value'] = $random->name();
+
+    array_unshift($form['actions']['submit']['#submit'], 'transferhub_project_autofill_username_in_register_form');
+}
+
+/**
+ * Custom submit callback for user_register_form.
+ */
+function transferhub_project_autofill_username_in_register_form(array &$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+    $mail = $form_state->getValue('mail');
+    $form_state->setValue('name', $mail);
+}
+
+function transferhub_project_form_user_login_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+
+    $form["name"]["#title"] = t("Email");
+    $form["name"]["#description"] = t("Old users may need to enter their username in this field");
+
+    //asdfjlkasdjf
+}

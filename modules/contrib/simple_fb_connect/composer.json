@@ -1,0 +1,6 @@
+{
+  "name": "drupal/simple_fb_connect",
+  "require" : {
+    "facebook/php-sdk-v4" : "~5.0"
+  }
+}

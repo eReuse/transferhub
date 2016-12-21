@@ -1,0 +1,31 @@
+transferhub_devicehub.apiTest: #todo deleteeee
+  path: '/api-test'
+  defaults:
+    _controller: '\Drupal\transferhub_devicehub\Controller\TransferHubDeviceHubController::apiTest'
+  methods: [GET]
+  requirements:
+    _permission: 'access content'
+
+transferhub_devicehub.projectTest: #todo deletee
+  path: '/project-test'
+  defaults:
+    _controller: '\Drupal\transferhub_devicehub\Controller\TransferHubDeviceHubController::projectTest'
+  methods: [GET]
+  requirements:
+    _permission: 'access content'
+
+transferhub_devicehub.eventTest: #todo deletee
+  path: '/event-test'
+  defaults:
+    _controller: '\Drupal\transferhub_devicehub\Controller\TransferHubDeviceHubController::eventTest'
+  methods: [GET]
+  requirements:
+    _permission: 'access content'
+
+transferhub_devicehub.settings_form:
+  path: '/admin/config/transferhub_devicehub'
+  defaults:
+    _form: '\Drupal\transferhub_devicehub\Form\TransferhubDevicehubAdminSettingsForm'
+    _title: 'DeviceHub connection settings'
+  requirements:
+    _permission: 'administer site configuration'

@@ -1,0 +1,95 @@
+<?php
+
+function transferhub_theme_addons_theme($existing, $type, $theme, $path) {
+    return array(
+        'transferhub_success_statistics' =>
+            array(
+                'variables' => array(
+                    'administered' => null,
+                    'donated' => null,
+                    'helped' => null,
+                    'successful' => null,
+                ),
+                'template' => 'block--inner--transferhub-success-statistics'
+            ),
+        'transferhub_reuse_with_us' =>
+            array(
+                'variables' => array(
+                    'first' => null,
+                    'second' => null,
+                    'third' => null,
+                    'fourth' => null,
+                ),
+                'template' => 'block--inner--transferhub-reuse-with-us'
+            ),
+        'transferhub_video' =>
+            array(
+                'variables' => array(
+                    'text' => null,
+                    'link' => null,                  
+                ),
+                'template' => 'block--inner--transferhub-video'
+            ),
+        'transferhub_quote' =>
+            array(
+                'variables' => array(
+                    'text' => null,
+                    'author' => null,
+                    'position' => null,
+                ),
+                'template' => 'block--inner--transferhub-quote'
+            ),
+        'transferhub_promoted_projects' =>
+            array(
+                'variables' => array(
+                    'header_text' => null,
+                    'view' => null,                    
+                ),
+                'template' => 'block--inner--transferhub-promoted-projects'
+            ),
+    );
+}
+
+function transferhub_theme_addons_preprocess_block(&$variables)
+{
+    if ($variables["plugin_id"] == "transferhub_reuse_with_us")
+    {
+        $variables["label"] = _transferhub_theme_addons_processBoldText($variables["label"]);
+        $variables["content"]["#first"] = _transferhub_theme_addons_processBoldText($variables["content"]["#first"]);
+        $variables["content"]["#second"] = _transferhub_theme_addons_processBoldText($variables["content"]["#second"]);
+        $variables["content"]["#third"] = _transferhub_theme_addons_processBoldText($variables["content"]["#third"]);
+        $variables["content"]["#fourth"] = _transferhub_theme_addons_processBoldText($variables["content"]["#fourth"]);
+    }
+
+    if ($variables["plugin_id"] == "transferhub_video")
+    {
+        $variables["label"] = _transferhub_theme_addons_processBoldText($variables["label"]);
+    }
+}
+
+function _transferhub_theme_addons_processBoldText($text)
+{
+    if (substr_count("*",$text) % 2 != 0 )
+    {
+        return $text;
+    }
+
+    $arr = explode("*",$text);
+    $i = 0;
+    $final = "";
+    foreach($arr as $sub)
+    {
+        if ($i % 2 == 0)
+            $d = "<strong>";
+        else
+            $d = "</strong>";
+
+        $final .= $sub;
+        if ($i < count($arr) -1 )
+        {
+            $final .= $d;
+        }
+        $i++;
+    }
+    return $final;
+}

@@ -1,0 +1,32 @@
+core: 8.x
+type: theme
+base theme: bootstrap
+
+name: 'TransferHub'
+description: 'Bootstrap Sub-Theme based on Two Doors© template'
+package: 'Bootstrap'
+
+regions:
+  navigation_top: 'Navigation top'
+  navigation: 'Navigation'
+  navigation_collapsible: 'Navigation (Collapsible)'
+  header: 'Top Bar'
+  highlighted: 'Highlighted'
+  help: 'Help'
+  content: 'Content'
+  content_front: 'Front Content'
+  sidebar_first: 'Primary'
+  sidebar_second: 'Secondary'
+  sidebar_project: "Project's page sidebar"
+  footer: 'Footer'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+
+libraries:
+  #styles
+  - 'transferhub/global-styling'
+  - 'transferhub/bootstrap-social'
+  #scripts
+  - 'transferhub/bootstrap-scripts'
+  - 'transferhub/two-doors-scripts'
+

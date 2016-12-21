@@ -1,0 +1,28 @@
+# Default settings should not be located here. This file is only used to
+# override existing settings. If your theme is the one that introduces a new
+# theme setting, it should use the Drupal Bootstrap base theme's
+# @BootstrapSetting annotation discovery process. This ensures that sub-theme
+# settings are inherited from base themes themes properly and to determine when
+# a setting should be saved to config as "overridden".
+#
+# @see \Drupal\bootstrap\Plugin\SettingBase
+# @see \Drupal\bootstrap\Plugin\SettingInterface
+# @see \Drupal\bootstrap\Plugin\SettingManager
+# @see \Drupal\bootstrap\Plugin\Form\SystemThemeSettings
+# @see \Drupal\bootstrap\ThemeSettings
+
+# Disable the CDN provider so compiled LESS source files can be used.
+cdn_provider: ''
+primary_color: '#bdc647' #todo
+title: 'Platform for IT equipment donation'
+subtitle: 'We enable the direct donation of IT equipment to organizational and individual initiatives'
+default_bg: true
+default_bg_path: 'themes/custom/transferhub/images/home_banner/banner-bg.jpg'
+default_header_side_image: true
+default_header_side_image_path: 'themes/custom/transferhub/images/home_banner/banner-side-image.png'
+include_button: false
+default_video_image: true
+default_contact_image: true
+
+
+

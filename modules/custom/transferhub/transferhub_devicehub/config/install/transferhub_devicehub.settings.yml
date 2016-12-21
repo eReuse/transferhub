@@ -1,0 +1,4 @@
+devicehub_host: ''
+username: ''
+password: ''
+default_db: 'db1'

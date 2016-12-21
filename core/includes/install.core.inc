@@ -361,7 +361,13 @@ function install_begin_request($class_loader, &$install_state) {
   \Drupal::setContainer($container);
 
   // Determine whether base system services are ready to operate.
-  $install_state['config_verified'] = install_ensure_config_directory(CONFIG_SYNC_DIRECTORY);
+  try {
+    $sync_directory = config_get_config_directory(CONFIG_SYNC_DIRECTORY);
+    $install_state['config_verified'] = file_exists($sync_directory);
+  }
+  catch (Exception $e) {
+    $install_state['config_verified'] = FALSE;
+  }
   $install_state['database_verified'] = install_verify_database_settings($site_path);
   $install_state['settings_verified'] = $install_state['config_verified'] && $install_state['database_verified'];
 
@@ -1084,7 +1090,7 @@ function install_verify_completed_task() {
  *   The site path.
  *
  * @return bool
- *  TRUE if there are no database errors.
+ *   TRUE if there are no database errors.
  */
 function install_verify_database_settings($site_path) {
   if ($database = Database::getConnectionInfo()) {
@@ -1372,7 +1378,7 @@ function install_retrieve_file($uri, $destination) {
 }
 
 /**
- *  Checks if the localization server can be contacted.
+ * Checks if the localization server can be contacted.
  *
  * @param string $uri
  *   The URI to contact.
@@ -1595,7 +1601,7 @@ function install_download_additional_translations_operations(&$install_state) {
   // should download/import translations.
   $languages = \Drupal::languageManager()->getLanguages();
   $operations = array();
-  foreach($languages as $langcode => $language) {
+  foreach ($languages as $langcode => $language) {
     // The installer language was already downloaded. Check downloads for the
     // other languages if any. Ignore any download errors here, since we
     // are in the middle of an install process and there is no way back. We

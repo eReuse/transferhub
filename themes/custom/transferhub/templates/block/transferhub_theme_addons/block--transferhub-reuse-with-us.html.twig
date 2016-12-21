@@ -1,0 +1,16 @@
+<div class="padding-top" id="service">
+    <div class="container">
+        <div class="row">
+            <div class="text-center section-title">
+                <i class="fa fa-flag-checkered" aria-hidden="true"></i>
+                {% if label %}
+                    <h2>{{ label|raw }}</h2>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row text-center">
+            {{ content }}
+        </div>
+    </div>
+</div>
+<!--/#Our Service-->

@@ -1,0 +1,9 @@
+id: syncronize_devicehub_action
+label: 'Syncronize DeviceHub'
+status: true
+langcode: en
+type: node
+plugin: syncronize_devicehub_action
+dependencies:
+  module:
+    - node

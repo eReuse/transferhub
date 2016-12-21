@@ -1,0 +1,13 @@
+name: TransferHub Project
+type: module
+description: 'Enables project management'
+package: TransferHub
+core: 8.x
+#configure: reuse_migrate.form
+
+dependencies:
+  - workflow
+  - field_collection
+  - address
+  - inline_entity_form
+  - field_group

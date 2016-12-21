@@ -1,0 +1,45 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="row">
+    <h3>{% trans %}Say hello !{% endtrans %}</h3>
+    <div class="col-sm-6">
+        <form{{ attributes }}>
+            {{ children }}
+        </form>
+        <div class="form-group">
+            <button class="btn btn-primary" onclick="document.getElementById('contact-message-feedback-form').submit();"><i class="fa fa-envelope-o"></i>{% trans %}Send Message{% endtrans %}</button>
+        </div>
+    </div>
+    <div class="col-sm-2 text-center">
+        <ul class="contact-social">
+            <!--li><a href="#"><i class="fa fa-behance"></i></a></li-->
+            {% if theme.settings.twitter_url %}
+                <li><a href="{{ theme.settings.twitter_url }}"><i class="fa fa-twitter"></i></a></li>
+            {% endif %}
+            <!--li><a href="#"><i class="fa fa-dribbble"></i></a></li-->
+            {% if theme.settings.facebook_url %}
+                <li><a href="{{  theme.settings.facebook_url }}"><i class="fa fa-facebook"></i></a></li>
+            {% endif %}
+            {% if theme.settings.google_plus_url %}
+                <li><a href="{{ theme.settings.google_plus_url }}"><i class="fa fa-google-plus"></i></a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="col-sm-4">
+        <img class="img-responsive" src="{{ theme.settings.contact_image }}" alt="">
+    </div>
+</div>
+
+

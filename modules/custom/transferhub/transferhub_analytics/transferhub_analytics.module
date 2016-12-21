@@ -1,0 +1,22 @@
+<?php
+
+function transferhub_analytics_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+{
+    if ($form_id == 'transferhub_vote_authenticated_block_form')
+    {
+        $title = \Drupal::routeMatch()->getParameter("node")->getTitle();
+        $title =str_replace("''","`",$title);
+        $form["submit"]["#attributes"]["onclick"] =  "javascript:ga('send', 'event', 'vote', 'web', 'project-".$title."');";
+    }
+
+}
+
+function transferhub_analytics_page_attachments(array &$page) {
+
+    $node = \Drupal::routeMatch()->getParameter("node");
+
+    if (isset($node) && $node->getType() == "project") {
+        $page['#attached']['library'][] = 'transferhub_analytics/transferhub_analytics';
+        $page['#attached']['drupalSettings']['nodeTitle'] = $node->getTitle();
+    }
+}

@@ -1,0 +1,12 @@
+name: TransferHub DeviceHub communication
+type: module
+description: 'Sets up communication with DeviceHub'
+package: TransferHub
+core: 8.x
+configure: transferhub_devicehub.settings_form
+
+dependencies:
+  - serialization
+  - basic_auth
+  - rest
+  - hal

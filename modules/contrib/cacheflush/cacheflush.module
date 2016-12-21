@@ -1,0 +1,103 @@
+<?php
+
+/**
+ * @file
+ * Cacheflush module.
+ */
+
+/**
+ * Implements hook_page_attachments().
+ */
+function cacheflush_page_attachments(array &$page) {
+  $page['#attached']['library'][] = 'cacheflush/cacheflush.menu';
+}
+
+/**
+ * Implements hook_cacheflush_tabs_options().
+ */
+function cacheflush_cacheflush_tabs_options() {
+  $options = array(
+    'static' => array(
+      'description' => t('Reset all static caches.'),
+      'category' => 'vertical_tabs_functions',
+      'functions' => array(
+        '0' => array(
+          '#name' => 'drupal_static_reset',
+          '#params' => array(),
+        ),
+      ),
+    ),
+    'asset' => array(
+      'description' => t('Flush asset file caches.'),
+      'category' => 'vertical_tabs_functions',
+      'functions' => array(
+        '0' => array(
+          '#name' => '\Drupal\cacheflush\Controller\CacheflushApi::clearBinCache',
+          '#params' => array('asset.css.collection_optimizer'),
+        ),
+        '1' => array(
+          '#name' => '\Drupal\cacheflush\Controller\CacheflushApi::clearBinCache',
+          '#params' => array('asset.js.collection_optimizer'),
+        ),
+        '2' => array(
+          '#name' => '_drupal_flush_css_js',
+          '#params' => array(),
+        ),
+      ),
+    ),
+    'kernel' => array(
+      'description' => t('Invalidate the container.'),
+      'category' => 'vertical_tabs_functions',
+      'functions' => array(
+        '0' => array(
+          '#name' => '\Drupal\cacheflush\Controller\CacheflushApi::clearBinCache',
+          '#params' => array('kernel', 'invalidateContainer'),
+        ),
+      ),
+    ),
+    'twig' => array(
+      'description' => t('Wipe the Twig PHP Storage cache.'),
+      'category' => 'vertical_tabs_functions',
+      'functions' => array(
+        '0' => array(
+          '#name' => '\Drupal\cacheflush\Controller\CacheflushApi::clearStorageCache',
+          '#params' => array('twig'),
+        ),
+      ),
+    ),
+    'plugin' => array(
+      'description' => t('Clear all plugin caches.'),
+      'category' => 'vertical_tabs_functions',
+      'functions' => array(
+        '0' => array(
+          '#name' => '\Drupal\cacheflush\Controller\CacheflushApi::clearBinCache',
+          '#params' => array('plugin.cache_clearer', 'clearCachedDefinitions'),
+        ),
+      ),
+    ),
+    'module' => array(
+      'description' => t('Rebuild module and theme data.'),
+      'category' => 'vertical_tabs_functions',
+      'functions' => array(
+        '0' => array(
+          '#name' => '\Drupal\cacheflush\Controller\CacheflushApi::clearModuleCache',
+          '#params' => array(),
+        ),
+      ),
+    ),
+    // Rebuild the menu router based on all rebuilt data.
+    // Important: This rebuild must happen last, so the menu router is
+    // guaranteed to be based on up to date information.
+    'router' => array(
+      'description' => t('Rebuild the menu router based on all rebuilt data.'),
+      'category' => 'vertical_tabs_functions',
+      'functions' => array(
+        '0' => array(
+          '#name' => '\Drupal\cacheflush\Controller\CacheflushApi::clearBinCache',
+          '#params' => array('router.builder', 'rebuild'),
+        ),
+      ),
+    ),
+  );
+  return $options;
+}

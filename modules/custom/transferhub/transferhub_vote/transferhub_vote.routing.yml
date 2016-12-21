@@ -1,4 +1,4 @@
-reuse_migrate.login:
+transferhub_vote.login:
   path: '/transferhub/vote/login'
   defaults:
     _controller: '\Drupal\transferhub_vote\Controller\TransferHubVoteController::login'

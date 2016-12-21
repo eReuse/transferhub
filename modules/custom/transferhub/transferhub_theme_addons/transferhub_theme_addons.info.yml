@@ -1,0 +1,8 @@
+name: TransferHub Theme addons
+type: module
+description: 'Provices default blocks compatible with Transferhub Theme'
+package: TransferHub
+core: 8.x
+
+dependencies:
+  - transferhub_project

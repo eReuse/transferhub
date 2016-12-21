@@ -1,0 +1,76 @@
+//TODO COPIAR!! A TEMPLATE REUTILTIZA
+
+
+//General brand color styles and other main styles
+
+//links
+a {
+  color: @link-color;
+}
+a:hover{
+  color: @link-hover-color;
+}
+
+//Navigation region
+#navigation {
+  .navbar-static-top {
+    background-color: @primary-darken-fade
+  }
+
+  .navbar-collapse a:hover {
+    background-color: @primary-lighted !important;
+  }
+
+  .navbar-right li a:hover
+  {
+    color: @link-hover-color;
+  }
+
+  .navbar-right li.active> a {
+    font-weight: bold;
+    color: white;
+  }
+
+  .topbar-icons span i:hover
+  {
+    color: @link-hover-color;
+  }
+
+  .navbar-right .dropdown-menu li a:hover
+  {
+    background-color: @link-hover-color;
+  }
+
+}
+
+//footer
+#footer a:hover{
+  color: @link-hover-color;
+}
+
+//blocks and forms
+
+#get-touch .contact-social li a:hover {
+  color: @link-hover-color;
+}
+
+.btn.btn-primary:hover
+{
+  border-color: @link-hover-color !important;
+  color: @link-hover-color !important;
+}
+.form-control:focus
+{
+  border-color: @link-hover-color;
+}
+
+//tabs
+.nav-tabs>li.active>a:visited
+{
+  color: @link-hover-color;
+}
+
+//carrousel
+.carousel-indicators .active {
+  border-color: @brand-primary !important;
+}

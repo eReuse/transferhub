@@ -1,0 +1,35 @@
+{# votes #}
+{% if votes == 0 %}
+    <br/>
+    {% trans %}No one voted for this project yet. Be the first one!{% endtrans %}
+{% else %}
+    {% if votes == 1 %}
+        <h2><span class="glyphicon glyphicon-thumbs-up"></span> {{ votes }} {% trans %}vote{% endtrans %}</h2>
+    {% else %}
+        <h2><span class="glyphicon glyphicon-thumbs-up"></span> {{ votes }} {% trans %}votes{% endtrans %}</h2>
+    {% endif %}
+{% endif  %}
+
+{# button #}
+{% if form %}
+    <p>{{ form }}</p>
+{% endif %}
+
+{% if voted %}
+    <p><i>{% trans %}You voted for this project{% endtrans %}</i></p>
+{% endif %}
+<br/>
+
+{# footer information #}
+<br/>
+<div class="pull-left">
+    <p><h2><i class="fa fa-desktop" aria-hidden="true"></i></h2></p><p>{% trans %}Required devices{% endtrans %}</p>
+    <p><h2><strong>{{ required_devices }}</strong></h2></p>
+</div>
+
+<div class="pull-right">
+    <p><h2><i class="fa fa-calendar" aria-hidden="true"></i></h2></p><p>{% trans %}Deadline{% endtrans %}</p>
+    <p><h2><strong>{{ deadline }} </strong></h2></p>
+</div>
+
+

@@ -1,0 +1,10 @@
+name: TransferHub Analytics
+type: module
+description: 'Sends Google Analytics events for serveral user interactions in TransferHub'
+package: TransferHub
+core: 8.x
+
+dependencies:
+  - transferhub_project
+  - transferhub_vote
+  - google_analytics

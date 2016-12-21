@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * @file
+ * Contains \Drupal\custom_pub\Plugin\RulesAction\SetCustomPublishingOption.
+ */
+
+namespace Drupal\rules\Plugin\RulesAction;
+
+//use Drupal\custom_pub\CustomPublishingOptionInterface;
+use Drupal\rules\Core\RulesActionBase;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Entity\EntityStorageInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
+/**
+ * Provides an action to trigger a custom publishing option.
+ *
+ * @RulesAction(
+ *   id = "rules_syncronize_in_devicehub",
+ *   label = @Translation("Syncronize in DeviceHub"),
+ *   category = @Translation("Content"),
+ *   context = {
+ *    "entity" = @ContextDefinition("entity",
+ *       label = @Translation("Entity"),
+ *       description = @Translation("Specifies the entity")
+ *     ),
+ *   }
+ * )
+ */
+class SyncronizeInDevicehub extends RulesActionBase {
+
+    /**
+     * Sets the custom publishing option on a given entity.
+     *
+     * @param \Drupal\Core\Entity\EntityInterface $entity
+     *   The entity to be saved.
+     */
+    protected function doExecute() { //EntityInterface $entity
+
+        $node = \Drupal::routeMatch()->getParameter('node');
+
+        if ($node) {
+            $workflow = $node->get("field_workflow")->getValue();
+
+            //var_dump($workflow); die;
+
+            $state = $workflow[0]["value"];
+
+            //LOG
+            drupal_set_message("node: " . $node->id() . " | wf: " . $state);
+
+            //comunicateStateChange($node, $state);
+        }
+    }
+}

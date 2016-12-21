@@ -1,0 +1,512 @@
+@import '../css/two_doors/bootstrap.min.css';
+@import '../css/two_doors/font-awesome.min.css';
+@import '../css/two_doors/font.css';
+@import '../css/two_doors/prettyPhoto.css';
+@import '../css/two_doors/main.css';
+@import '../css/two_doors/responsive.css';
+/**
+ * Variable Overrides.
+ *
+ * Modify this file to override the Bootstrap Framework variables. You can copy
+ * these variables directly from ../bootstrap/less/variables.less to this file.
+ */
+/**
+ * File (and Image Widget) styles.
+ */
+.file {
+  display: table;
+  font-size: 75%;
+  font-weight: 700;
+  margin: 5px 0;
+  width: 100%;
+}
+.file > span {
+  background: #fff;
+  color: #bdc647;
+  border-bottom: 1px solid #cccccc;
+  border-top: 1px solid #cccccc;
+}
+.file > span:first-child {
+  border-left: 1px solid #cccccc;
+}
+.file > span:last-child {
+  border-right: 1px solid #cccccc;
+}
+.file > .tabledrag-changed {
+  background: #fcf8e3;
+  border-radius: 0;
+  color: #8a6d3b;
+  display: table-cell;
+  padding: 0 1em;
+  top: 0;
+  vertical-align: middle;
+  border-left: 1px solid inherit;
+}
+.file > .tabledrag-changed,
+.file > .tabledrag-changed:last-child {
+  border: 1px solid #f7e1b5;
+}
+.file-icon {
+  display: table-cell;
+  font-size: 150%;
+  padding: .25em .5em;
+  text-align: center;
+  vertical-align: middle;
+}
+.file-link {
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+}
+.file-link a,
+.file-link a:hover,
+.file-link a:focus,
+.file-link a:active {
+  color: inherit;
+}
+.file-size {
+  display: table-cell;
+  padding: 0 1em;
+  text-align: right;
+  white-space: pre;
+  vertical-align: middle;
+}
+.image-widget.row {
+  overflow: hidden;
+}
+a {
+  color: #bdc647;
+}
+a:hover {
+  color: #8c932e;
+}
+#navigation .navbar-static-top {
+  background-color: rgba(140, 147, 46, 0.5);
+}
+#navigation .navbar-collapse a:hover {
+  background-color: #d2d881 !important;
+}
+#navigation .navbar-right li a:hover {
+  color: #8c932e;
+}
+#navigation .navbar-right li.active > a {
+  font-weight: bold;
+  color: white;
+}
+#navigation .topbar-icons span i:hover {
+  color: #8c932e;
+}
+#navigation .navbar-right .dropdown-menu li a:hover {
+  background-color: #8c932e;
+}
+#footer a:hover {
+  color: #8c932e;
+}
+#get-touch .contact-social li a:hover {
+  color: #8c932e;
+}
+.btn.btn-primary:hover {
+  border-color: #8c932e !important;
+  color: #8c932e !important;
+}
+.form-control:focus {
+  border-color: #8c932e;
+}
+.nav-tabs > li.active > a:visited {
+  color: #8c932e;
+}
+.carousel-indicators .active {
+  border-color: #bdc647 !important;
+}
+/*
+html.html.twig (header, footer...), ...
+*/
+img {
+  margin-bottom: 10px;
+}
+.container-top {
+  min-height: 45px;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: rgba(1, 1, 1, 0.7);
+}
+.region-navigation-top {
+  float: right;
+  color: white !important;
+}
+.region-navigation-top a {
+  color: white !important;
+}
+.navbar-nav .dropdown-menu > li {
+  float: none;
+}
+.navbar-brand {
+  background-color: transparent !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.navbar-header {
+  background-color: transparent !important;
+}
+.navbar-header:before {
+  background-color: transparent !important;
+}
+@media (min-width: 768px) {
+  .navbar-brand img {
+    position: relative;
+    top: -42px;
+  }
+}
+#landing-carousel .carousel-caption h3 {
+  color: white;
+}
+#block-transferhub-account-menu ul {
+  margin-right: 0 !important;
+}
+.main-blog-no-node {
+  padding-top: 50px !important;
+}
+.nav-tabs > li.active > a {
+  cursor: default;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+}
+nav.tabs.container {
+  margin-bottom: 30px;
+}
+@media (min-width: 768px) {
+  #footer ul.menu li {
+    float: left;
+  }
+}
+#footer a {
+  color: white;
+}
+form.search-page-form {
+  display: none;
+}
+#sliding-popup {
+  background-color: rgba(189, 198, 71, 0.8) !important;
+}
+.sliding-popup-bottom {
+  background-image: none !important;
+}
+.user-register-form .search-page-form {
+  display: none;
+}
+.region-navigation-top .block-language ul li {
+  float: left;
+  margin-left: 6px;
+}
+.region-navigation .block-language ul li.is-active,
+.region-navigation-top .block-language ul li.is-active {
+  font-weight: bold;
+}
+.region-navigation .block-language ul li {
+  float: left;
+  margin-left: -2px;
+}
+.region-navigation .block-language {
+  padding: 10px;
+}
+@media (min-width: 768px) {
+  div.region-navigation-collapsible nav {
+    float: left;
+  }
+}
+#block-useraccountmenu ul,
+#block-reutilitza-account-menu ul {
+  margin-right: 0 !important;
+}
+a.user-dropdown-toggle {
+  padding: 0;
+}
+.path-frontpage #home-carousel .carousel-caption h3 {
+  font-size: 52px;
+}
+.success-statistics {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-color: #313131;
+  color: white;
+}
+.success-statistics h2 {
+  margin-top: 10px;
+  font-weight: bold;
+}
+.success-statistics .service-text {
+  text-transform: uppercase;
+}
+.success-statistics i {
+  font-size: 26px;
+}
+#service .section-title h2:before {
+  background-image: none;
+}
+#service .section-title h2:after {
+  background-color: #bdc647;
+}
+#service .section-title .fa-flag-checkered {
+  font-size: 26px;
+  color: #bdc647;
+}
+.path-frontpage #promotion {
+  background-image: url("/reutilitza/themes/custom/transferhub/images/home/video_texture.png") !important;
+}
+.path-frontpage #promotion .overlay-bg {
+  background-color: rgba(189, 198, 71, 0.8);
+}
+.path-frontpage #get-touch {
+  max-height: 660px;
+  overflow: hidden;
+}
+.path-frontpage #get-touch .form-control:focus {
+  border-color: #bdc647;
+}
+#testimonial-page .quote-section {
+  padding-bottom: 70px;
+  padding-top: 150px;
+}
+.collaborators {
+  background-color: #f5f5f5;
+  padding-bottom: 40px;
+  padding-top: 40px;
+}
+.collaborators h2 {
+  margin-bottom: 30px;
+}
+.collaborators img {
+  width: 70%;
+}
+.user-register-form .filter-help {
+  display: none;
+}
+div.password-suggestions {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+div.password-suggestions ul {
+  margin-left: 15px;
+  list-style: inherit;
+}
+input#edit-pass-pass2 {
+  margin-bottom: 10px;
+}
+div.password-confirm span.ok {
+  padding: 7px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+div.password-confirm span.error {
+  padding: 7px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+/*@media (min-width: @screen-sm) {
+  .user-login-form
+  {
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}*/
+/*button span.icon:before
+{
+  content: "";
+}*/
+body.user-logged-in h4.label {
+  color: black;
+  font-size: 100%;
+}
+body.user-logged-in img {
+  margin-bottom: 10px;
+}
+.basic-page-section-title {
+  text-align: left;
+}
+.basic-page-subpage.gray-background,
+.basic-page-subpage.gray-background .post-content {
+  background-color: #EEE;
+}
+.basic-page-subpage h3 {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.basic-page-subpage h2 {
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.basic-page-subpage table {
+  margin-top: 30px;
+}
+.basic-page-subpage table td {
+  vertical-align: top;
+}
+.basic-page-subpage table td img {
+  margin-right: 25px;
+}
+div.project-social {
+  padding-top: 20px !important;
+}
+div.post-social {
+  background-color: inherit !important;
+}
+div.post-social .tags .field--item {
+  background-color: white;
+}
+div.project-content {
+  padding-top: 25px !important;
+}
+.page-node-type-project #blog-breadcrumb img {
+  margin-bottom: 0 !important;
+}
+#blog-breadcrumb.project-header,
+#blog-breadcrumb.project-footer {
+  background-image: none;
+  background-color: #454545;
+  color: white;
+}
+.post.post-devices .field--item {
+  display: inline;
+}
+.post.post-devices li {
+  vertical-align: top;
+  margin-top: 20px;
+}
+.post.post-devices li span.text {
+  font-size: 16px;
+}
+.post.post-devices .device-icon {
+  font-size: 60px;
+}
+.post.post-devices .device-icon-sm {
+  font-size: 50px;
+}
+#block-transferhubvotingblock {
+  padding: 20px 20px;
+}
+.page-node-type-project .widget-area .organization h3 {
+  margin-top: 0;
+}
+.page-node-type-project .widget-area .organization .more {
+  float: right;
+  margin-top: 15px;
+}
+div.post.donor .media {
+  border-bottom: 1px solid #d8d8d8;
+}
+.practices h2.title {
+  font-weight: bold;
+  padding-left: 25px;
+  margin-top: 30px;
+  margin-bottom: 0px;
+}
+.practices .media {
+  border-bottom: 1px solid white;
+}
+.practices .rating-select {
+  margin-top: 30px;
+  font-size: 25px;
+  color: #fdc916;
+}
+.node-project-form .field--name-field-desktop,
+.node-project-edit-form .field--name-field-desktop,
+.node-project-form .field--name-field-desktop-with-peripherals,
+.node-project-edit-form .field--name-field-desktop-with-peripherals,
+.node-project-form .field--name-field-laptop,
+.node-project-edit-form .field--name-field-laptop,
+.node-project-form .field--name-field-tablet-computer,
+.node-project-edit-form .field--name-field-tablet-computer,
+.node-project-form .field--name-field-mobile-phone,
+.node-project-edit-form .field--name-field-mobile-phone,
+.node-project-form .field--name-field-computer-monitor,
+.node-project-edit-form .field--name-field-computer-monitor {
+  float: left;
+  margin-right: 20px;
+}
+.node-project-form #edit-actions .button,
+.node-project-edit-form #edit-actions .button {
+  margin-right: 15px;
+}
+#edit-field-organization-new-form-inline-entity-form-actions .btn-success {
+  margin-right: 15px;
+}
+.view-projects .grid-row {
+  margin-top: 25px;
+}
+div.field--name-field-tags .field--item {
+  width: auto;
+  float: right;
+  padding: 2px 8px;
+  background-color: #F5F5F5;
+  margin-left: 8px;
+  margin-top: 8px;
+  font-size: 13px;
+}
+div.field--name-field-tags .field--item a {
+  color: #454545;
+}
+.view-projects .tags {
+  border-bottom: 1px solid #eee;
+}
+.view-display-id-block_1 .col-sm-3 {
+  text-align: left;
+}
+.view-display-id-block_1 .col-sm-3 .field--name-field-image {
+  text-align: center ;
+}
+.view-display-id-block_1 .col-sm-3 .field--name-field-image img {
+  display: inline;
+  width: 100%;
+}
+.app-section-title h2 {
+  font-weight: inherit !important;
+}
+.path-frontpage #screenshots {
+  background-color: inherit !important;
+  margin-bottom: 60px;
+}
+#projects-details.organization {
+  margin-bottom: 100px;
+}
+.form-required:after {
+  color: #e00;
+  content: " \204E ";
+  line-height: 1;
+  vertical-align: super;
+}
+a.icon-before {
+  color: #337ab7;
+  text-decoration: none;
+}
+a.icon-before .glyphicon {
+  margin-right: .25em;
+}
+#workflow-transition-field-workflow-form-2 .form-save-default-button {
+  margin-top: 15px;
+}
+.btn.btn-primary:visited {
+  color: white;
+}
+.file-help-description {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+/*# sourceMappingURL=style.css.map */

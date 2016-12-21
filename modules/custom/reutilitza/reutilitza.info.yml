@@ -1,0 +1,8 @@
+name: Reutilitza
+type: module
+description: 'Custom special features for Reutilitza.cat'
+package: Reutilitza
+core: 8.x
+#configure: reuse_migrate.form
+
+#dependencies:

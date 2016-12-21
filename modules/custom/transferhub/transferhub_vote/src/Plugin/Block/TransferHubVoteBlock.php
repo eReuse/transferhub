@@ -8,11 +8,10 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 
 /**
- * Provides a Lorem ipsum block with which you can generate dummy text anywhere
  *
  * @Block(
- *   id = "loremipsum_block",
- *   admin_label = @Translation("Lorem ipsum block"),
+ *   id = "transferhub_vote_block",
+ *   admin_label = @Translation("TransferHub Voting block"),
  * )
  */
 
@@ -25,28 +24,48 @@ class TransferHubVoteBlock extends BlockBase {
         
         $userId = \Drupal::currentUser()->id();
         $nodeId = \Drupal::routeMatch()->getParameter('node')->id();
+        //drupal_set_message($nodeId);        
+        
+        $votes = \Drupal\transferhub_vote\Controller\TransferHubVoteController::getVotes($nodeId);
+        
+        $build_array = array(
+            "#theme" => "transferhub_vote_block",
+            "#votes" => $votes,
+            '#cache' => [
+                'max-age' => 0,
+            ]
+        );      
 
-        if (\Drupal::currentUser()->isAnonymous()) {
-            return \Drupal::formBuilder()->getForm('Drupal\transferhub_vote\Form\TransferHubVoteAnonymousForm');
+        if (\Drupal::currentUser()->isAnonymous()) { 
+            $build_array["#form"] = \Drupal::formBuilder()->getForm('Drupal\transferhub_vote\Form\TransferHubVoteAnonymousForm');
         }
         else
         {
             if (\Drupal\transferhub_vote\Controller\TransferHubVoteController::userAlreadyVoted($userId,$nodeId))
             {
-                $currentProjectNid =\Drupal::routeMatch()->getParameter("node")->id();
-                $votes = \Drupal\transferhub_vote\Controller\TransferHubVoteController::getVotes($currentProjectNid);
-                return array(
-                    "type" => "markup",
-                    "#markup" => "<h1>".$votes." vote(s)</h1>".t("You already voted for this project")."<br/>".
-                        //'<a href="#" onclick="javascript:ga(\'send\', \'event\',\'web\',\'vote\',\'project\',\'projectex\',\'button\'); return;">dispara event</a>'
-                        '<p onclick="alert(\'here\');">dispara event</p>'
-                );
+                $build_array["#voted"] = true;
             }
             else
             {
-                return \Drupal::formBuilder()->getForm('Drupal\transferhub_vote\Form\TransferHubVoteAuthenticatedForm');
+                $build_array["#form"] = \Drupal::formBuilder()->getForm('Drupal\transferhub_vote\Form\TransferHubVoteAuthenticatedForm');
             }
         }
+
+        $node = \Drupal\node\Entity\Node::load($nodeId);
+        
+        //Required devices
+        $build_array["#required_devices"] = $node->get("field_desktop")->getValue()[0]["value"]
+            + $node->get("field_desktop_with_peripherals")->getValue()[0]["value"]
+            + $node->get("field_laptop")->getValue()[0]["value"]
+            + $node->get("field_mobile_phone")->getValue()[0]["value"]
+            + $node->get("field_tablet_computer")->getValue()[0]["value"]
+            + $node->get("field_computer_monitor")->getValue()[0]["value"];
+
+        //kint($node->get("field_deadline")->getvalue()[0]["value"]);
+        
+        $build_array["#deadline"] = $node->get("field_deadline")->getvalue()[0]["value"];
+        
+        return $build_array;
     }
 
     /**

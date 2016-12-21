@@ -1,0 +1,25 @@
+/**
+ * Variable Overrides.
+ *
+ * Modify this file to override the Bootstrap Framework variables. You can copy
+ * these variables directly from ../bootstrap/less/variables.less to this file.
+ */
+
+// Set the proper directory for the Bootstrap Glyphicon font.
+@icon-font-path: '../bootstrap/fonts/';
+
+@import 'variable-overrides-color';
+
+//== Scaffolding
+//
+//## Settings for some of the most global styles.
+//** Global textual link color.
+@link-color:            @brand-primary;
+//** Link hover color set via `darken()` function.
+@link-hover-color:      darken(@link-color, 15%);
+
+@primary-fade: fade(@brand-primary, 80%);
+
+@primary-darken-fade: fade(darken(@brand-primary, 15%),50%);
+
+@primary-lighted: lighten(@brand-primary, 15%);

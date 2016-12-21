@@ -1,0 +1,18 @@
+<?php
+
+function transferhub_devicehub_user_insert($account)
+{
+    //Create new user in Devicehub
+    $plain_password = $_POST["pass"]["pass1"];    
+    \Drupal\transferhub_devicehub\TransferhubDevicehubTools::createUser($account, $plain_password);
+}
+
+function transferhub_devicehub_node_insert(\Drupal\Core\Entity\EntityInterface $node)
+{
+    if ($node->getType() == "project") {
+
+        //Create new project in DeviceHub
+        \Drupal\transferhub_devicehub\TransferhubDevicehubTools::createProject($node);
+    }
+}
+

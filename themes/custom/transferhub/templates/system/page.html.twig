@@ -1,0 +1,301 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a single page.
+ *
+ * The doctype, html, head and body tags are not in this template. Instead they
+ * can be found in the html.html.twig template in this directory.
+ *
+ * Available variables:
+ *
+ * General utility variables:
+ * - base_path: The base URL path of the Drupal installation. Will usually be
+ *   "/" unless you have installed Drupal in a sub-directory.
+ * - is_front: A flag indicating if the current page is the front page.
+ * - logged_in: A flag indicating if the user is registered and signed in.
+ * - is_admin: A flag indicating if the user has permission to access
+ *   administration pages.
+ *
+ * Site identity:
+ * - front_page: The URL of the front page. Use this instead of base_path when
+ *   linking to the front page. This includes the language domain or prefix.
+ *
+ * Navigation:
+ * - breadcrumb: The breadcrumb trail for the current page.
+ *
+ * Page content (in order of occurrence in the default page.html.twig):
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title: The page title, for use in the actual content.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - messages: Status and error messages. Should be displayed prominently.
+ * - tabs: Tabs linking to any sub-pages beneath the current page (e.g., the
+ *   view and edit tabs when displaying a node).
+ * - action_links: Actions local to the page, such as "Add menu" on the menu
+ *   administration interface.
+ * - node: Fully loaded node, if there is an automatically-loaded node
+ *   associated with the page and the node ID is the second argument in the
+ *   page's path (e.g. node/12345 and node/12345/revisions, but not
+ *   comment/reply/12345).
+ *
+ * Regions:
+ * - page.header: Items for the header region.
+ * - page.navigation: Items for the navigation region.
+ * - page.navigation_collapsible: Items for the navigation (collapsible) region.
+ * - page.highlighted: Items for the highlighted content region.
+ * - page.help: Dynamic help text, mostly for admin pages.
+ * - page.content: The main content of the current page.
+ * - page.sidebar_first: Items for the first sidebar.
+ * - page.sidebar_second: Items for the second sidebar.
+ * - page.footer: Items for the footer region.
+ *
+ * @ingroup templates
+ *
+ * @see template_preprocess_page()
+ * @see html.html.twig
+ */
+#}
+{# Navigation #}
+<header id="navigation">
+    <div class="navbar navbar-static-top" role="banner">
+        <div class="hidden-xs container-top ">
+            <div class="container">
+                <!--div class="row" style="color: white"-->
+                    {{ page.navigation_top }}
+                    <!--ul style="float: right; margin-right: 15px;">
+                        <li style="display: inline"> | Contacte</li>
+                        <li style="display: inline">| <i class="fa fa-phone"></i> 931000000</li>
+                    </ul-->
+                <!--/div-->
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{{ base_path }}">
+                            <h1>
+                                {% if theme.settings.logo.use_default == 1 %}
+                                    <img class="img-responsive" src="{{ base_path ~ directory }}/logo.png" alt="logo">
+                                {% else %}
+                                    <img class="img-responsive" src="{{ logo_path }}" alt="logo">
+                                {% endif %}
+                            </h1>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="collapse navbar-collapse navbar-right">
+                        {{ page.navigation_collapsible }}
+                        <div class="visible-xs">
+                            {{ page.navigation }}
+                        </div>
+                    </div>
+                    <div class="topbar-icons">
+                        <span><i class="fa fa-search"></i></span>
+                    </div>
+                    <div class="search">
+                        {{ search_block }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header><!--/#navigation-->
+
+{# Main #}
+{% block main %}
+
+    {# BANNER #}
+    {# Front page banner#}
+    {% if is_front %}
+        <div id="landing-carousel">
+            <div id="home-carousel" class="carousel carousel-fade slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                </ol>
+                <div class="carousel-inner">
+                    <div class="item active" style="background-image: url({{ theme.settings.header_bg_image }});">
+                        <div class="container carousel-caption">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <h3>{{ theme.settings.title }}</h3>
+                                    <h4>{{ theme.settings.subtitle }}</h4>
+                                    {% if theme.settings.include_button %}
+                                        <div class="button-section">
+                                            <a href="{{ theme.settings.button_link }}" class="btn btn-primary cloud-download">{{ theme.settings.button_caption }}</a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-5">
+                                    <img class="img-responsive" src="{{ theme.settings.header_side_image }}" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!--/#landing-carousel-->
+        </div><!--/#carousel-wrapper-->
+     {% endif %}
+
+     {# Page banner #}
+     {% if node.field_include_image_header.value %}
+        <div id="landing-carousel">
+            <div id="home-carousel" class="carousel carousel-fade slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                </ol>
+                <div class="carousel-inner">
+                    <div class="item active" style="background-image: url({{ file_url(node.field_background_image.0.entity.uri.value) }})">
+                        <div class="container carousel-caption">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <h3>{{ node.title.value }}</h3>
+                                    <h4>{{ node.field_subtitle.value }}</h4>
+
+                                    {% if node.field_include_button.value %}
+                                        <div class="button-section">
+                                            <a href="{{ node.field_button_link.0.url }}" class="btn btn-primary cloud-download">{{ node.field_button_caption.value }}</a>
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!--/#landing-carousel-->
+        </div><!--/#carousel-wrapper-->
+    {% endif %}
+
+    <div role="main" class="main-container {{ container }} js-quickedit-main-content container {% if not is_front and not node.field_include_image_header.value %}padding-top{% endif %}">
+        <div class="row">
+            {# Header #}
+            {% if page.header %}
+                {% block header %}
+                    <div class="col-sm-12" role="heading">
+                        {{ page.header }}
+                    </div>
+                {% endblock %}
+            {% endif %}
+
+            <section{{ content_attributes.addClass(content_classes) }}>
+
+                {# Highlighted #}
+                {% if page.highlighted %}
+                    {% block highlighted %}
+                        <div class="highlighted">{{ page.highlighted }}</div>
+                    {% endblock %}
+                {% endif %}
+
+                {# Breadcrumbs #}
+                {% if breadcrumb %}
+                    {% block breadcrumb %}
+                        {{ breadcrumb }}
+                    {% endblock %}
+                {% endif %}
+
+                {# Action Links #}
+                {% if action_links %}
+                    {% block action_links %}
+                        <ul class="action-links">{{ action_links }}</ul>
+                    {% endblock %}
+                {% endif %}
+
+                {# Help #}
+                {% if page.help %}
+                    {% block help %}
+                        {{ page.help }}
+                    {% endblock %}
+                {% endif %}
+            </section>
+        </div>
+    </div>
+
+    {# Content #}
+    {% block content %}
+
+        {# FRONT #}
+        {% if is_front %}
+            <a id="main-content"></a>
+
+            {{ page.content_front }}
+
+        {% endif %}
+
+        {# NODE #}
+         {% if is_node and not is_front %}
+             <a id="main-content"></a>
+             {{ page.content }}
+         {% endif %}
+
+         {# not NODE #}
+         {% if not is_node %}
+             <a id="main-content"></a>
+             <div id="main-blog "> <!-- main-blog-no-node -->
+               <div class="container">
+                   <div class="row">
+                       <div id="content" class="site-content col-md-12">
+                           <div class="post">
+                               <!--div class="post-content"-->
+                                    {{ page.content }}
+                               <!--/div-->
+                           </div>
+                       </div>
+                   </div>
+               </div>
+             </div>
+         {% endif %}
+
+     {% endblock %}<!-- end block content-->
+
+{% endblock %}<!-- end block main -->
+
+{# FOOTER #}
+<footer id="footer">
+    <!--div class="text-center footer-top">
+        <div class="overlay-bg"></div>
+        <div class="container">
+            <h2>Want to work with us?</h2>
+            <a href="#" class="btn btn-primary">Get in Touch</a>
+        </div>
+    </div-->
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-5">
+                    <p class="copyright">&copy; 2015 <a href="#">Doors ii.</a> All rights reserved.</p>
+                </div>
+                <div class="col-md-6 col-sm-7">
+                    <div class="footer-menu">
+                        {{ page.footer }}
+                    </div>
+                </div>
+                <div class="col-md-2 col-md-offset-0 col-sm-7 col-sm-offset-5">
+                    <div class="bottom-socials">
+                        <ul>
+                            {%  if theme.settings.facebook_url  %}
+                                <li><a href="{{ theme.settings.facebook_url }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                            {% endif %}
+                            {%  if theme.settings.twitter_url  %}
+                                <li><a href="{{ theme.settings.twitter_url }}" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                            {% endif %}
+                            {%  if theme.settings.google_plus_url  %}
+                                <li><a href="{{ theme.settings.google_plus_url }}" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+                            {% endif %}
+                            {%  if theme.settings.social.linkedin_url  %}
+                                <li><a href="{{ theme.settings.linkedin_url }}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer><!--/#footer-->
+

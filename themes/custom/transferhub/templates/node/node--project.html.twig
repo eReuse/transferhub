@@ -1,0 +1,432 @@
+{#
+/**
+ * @file
+ * Theme override to display a node.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+     Only "getter" methods (method names starting with "get", "has", or "is")
+     and a few common methods such as "id" and "label" are available. Calling
+     other methods (such as node.delete) will result in an exception.
+ * - label: The title of the node.
+ * - content: All node items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - author_picture: The node author user entity, rendered using the "compact"
+ *   view mode.
+ * - metadata: Metadata for this node.
+ * - date: Themed creation date field.
+ * - author_name: Themed author name field.
+ * - url: Direct URL of the current node.
+ * - display_submitted: Whether submission information should be displayed.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - node: The current template type (also known as a "theming hook").
+ *   - node--type-[type]: The current node type. For example, if the node is an
+ *     "Article" it would result in "node--type-article". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
+ *     teaser would result in: "node--view-mode-teaser", and
+ *     full: "node--view-mode-full".
+ *   The following are controlled through the node publishing options.
+ *   - node--promoted: Appears on nodes promoted to the front page.
+ *   - node--sticky: Appears on nodes ordered above other non-sticky nodes in
+ *     teaser listings.
+ *   - node--unpublished: Appears on unpublished nodes visible only to site
+ *     admins.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - content_attributes: Same as attributes, except applied to the main
+ *   content tag that appears in the template.
+ * - author_attributes: Same as attributes, except applied to the author of
+ *   the node tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - teaser: Flag for the teaser state. Will be true if view_mode is 'teaser'.
+ * - page: Flag for the full page state. Will be true if view_mode is 'full'.
+ * - readmore: Flag for more state. Will be true if the teaser content of the
+ *   node cannot hold the main body content.
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @ingroup templates
+ *
+ * @see template_preprocess_node()
+ *
+ * @todo Remove the id attribute (or make it a class), because if that gets
+ *   rendered twice on a page this is invalid CSS for example: two lists
+ *   in different view modes.
+ */
+#}
+
+
+
+{%
+set classes = [
+node.bundle|clean_class,
+node.isPromoted() ? 'is-promoted',
+node.isSticky() ? 'is-sticky',
+not node.isPublished() ? 'is-unpublished',
+view_mode ? view_mode|clean_class,
+'clearfix',
+]
+%}
+
+
+<div class="container">
+    <div class="row">
+        {{ title_prefix }}
+        {# if not page #}
+            <h1{{ title_attributes }}>
+                {{ label }}
+            </h1>
+        {# endif #}
+        {{ title_suffix }}
+        <i><h2>{{ content.field_slogan }}</h2></i>
+        {# if display_submitted %}
+            <footer>
+                {{ author_picture }}
+                <div{{ author_attributes.addClass('author') }}>
+                    {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
+                    {{ metadata }}
+                </div>
+            </footer>
+        {% endif #}
+    </div>
+</div>
+
+
+<div id="blog-breadcrumb" class="text-center page-breadcrumb project-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                {{ content.field_image }}
+            </div>
+            <div class="col-md-4">
+                    {{ vote_block }}
+            </div>
+        </div>
+    </div>
+</div><!--/.page-breadcrumb-->
+<div id="main-blog" class="project-social">
+    <div class="container">
+        <div class="row">
+            <div id="content" class="site-content col-md-8">
+
+                <div class="post post-social">
+                        {{ content.addtoany }}
+                        <div class="pull-right tags">
+                            {{ content.field_tags }}
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="main-blog" class="project-content">
+    <div class="container">
+        <div class="row">
+            <div id="content" class="site-content col-md-8">
+
+                <div class="post">
+                    <div class="post-content">
+                        <h2 class="entry-title">
+                            <a href="">{% trans %}Project description{% endtrans %}</a>
+                        </h2>
+
+                        <div class="entry-summary">
+                            <p>{{ content.field_description }}</p>
+                        </div>
+
+                        {% if  content.field_image_content %}
+                            <div class="entry-summary">
+                                <p>{{ content.field_image_content }}</p>
+                            </div>
+                        {% endif %}
+
+                        {% if  content.field_address %}
+                            <div class="entry-summary">
+                                <p>{{ content.field_address }}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div><!--/description-->
+
+                <div class="post post-devices">
+                    <div class="post-content">
+                        <h2 class="entry-title">
+                            <a href="">{% trans %}Requiered devices{% endtrans %}</a>
+                        </h2>
+                        <div class="entry-summary">
+                            <div class="text-center client-content">
+                                <ul>
+                                    {% if desktop %}
+                                        <li><p><i class="fa fa-server device-icon" aria-hidden="true"></i></p>
+                                            <span class="text">{% trans %}Desktop{% endtrans %} ({{ desktop }})</span>
+                                        </li>
+                                    {% endif %}
+                                    {% if desktop_with_peripherals %}
+                                        <li><p><i class="fa fa-server device-icon" aria-hidden="true"></i>&nbsp;&nbsp;<i class="fa fa-desktop device-icon" aria-hidden="true"></i></p>
+                                            <span class="text">{% trans %}Desktop with<br/> peripherals{% endtrans %} ({{ desktop_with_peripherals }})</span>
+                                        </li>
+                                    {% endif %}
+                                    {% if laptop %}
+                                        <li><p><i class="fa fa-laptop device-icon" aria-hidden="true"></i></p>
+                                            <span class="text">{% trans %}Laptop{% endtrans %} ({{ laptop }})</span>
+                                        </li>
+                                    {% endif %}
+                                    {% if tablet_computer %}
+                                        <li><p><i class="fa fa-tablet device-icon" aria-hidden="true"></i></p>
+                                            <span class="text">{% trans %}Tablet computer{% endtrans %} ({{ tablet_computer }})</span>
+                                        </li>
+                                    {% endif %}
+                                    {% if mobile_phone %}
+                                        <li><p><i class="fa fa-mobile device-icon" aria-hidden="true"></i></p>
+                                            <span class="text">{% trans %}Mobile phone{% endtrans %} ({{ mobile_phone }})</span>
+                                        </li>
+                                    {% endif %}
+                                    {% if computer_monitor %}
+                                        <li><p><i class="fa fa-desktop device-icon" aria-hidden="true"></i></p>
+                                            <span class="text">{% trans %}Computer monitor{% endtrans %} ({{ computer_monitor }})</span>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/devices-->
+
+                {% if current_uid == author_uid or is_admin or is_manager  %}
+                    <div class="post">
+                        <div class="post-content">
+                            <h2 class="entry-title">
+                                <a href="">{% trans %}Assigned devices{% endtrans %}</a>
+                            </h2>
+                            <div class="entry-summary">
+                                {% if not allocated %}
+                                    <p>{% trans %}There is no device allocated for this project yet.{% endtrans %}</p>
+                                {% else %}
+                                    <p>
+                                        <strong>{% trans %}Last allocation date{% endtrans %}:</strong> {{ content.field_last_allocation[0]["#text"] }}
+                                    </p>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            {% if is_admin or is_manager %}
+                                                <th>ID</th>
+                                            {% endif %}
+                                            <th>{% trans %}Category{% endtrans %}</th>
+                                            <th>{% trans %}Type{% endtrans %}</th>
+                                            <th>{% trans %}Manufacturer{% endtrans %}</th>
+                                            <th>{% trans %}Model{% endtrans %}</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {%  for device in allocated %}
+                                            <tr>
+                                                {% if is_admin or is_manager %}
+                                                    <th scope="row">{{ device.id.value }}</th>
+                                                {% endif %}
+                                                <td>{{ device.type.value }}</td>
+                                                <td>{{ device.subtype.value }}</td>
+                                                <td>{{ device.manufacturer.value }}</td>
+                                                <td>{{ device.model.value }}</td>
+                                                <td>{% if not device.received %}<a href="{{ device.url.value }}" target="_blank">{% trans %}view in DeviceHub{% endtrans %}</a>{% endif %}</td>
+                                                <td>{% if device.received %}<span class="label label-success">{% trans %}Received{% endtrans %}</span>{% endif %}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div><!--/allocated-->
+
+                    <div class="post">
+                        <div class="post-content">
+                            <h2 class="entry-title">
+                                <a href="">{% trans %}Received devices{% endtrans %}</a>
+                            </h2>
+                            <div class="entry-summary">
+                                {% if not received %}
+                                    <p>{% trans %}This project hasn't received any device yet.{% endtrans %}</p>
+                                {% else %}
+                                    <p>
+                                        <strong>{% trans %}Last reception date{% endtrans %}:</strong> {{ content.field_last_reception[0]["#text"] }}
+                                    </p>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            {% if is_admin or is_manager %}
+                                                <th>ID</th>
+                                            {% endif %}
+                                            <th>{% trans %}Category{% endtrans %}</th>
+                                            <th>{% trans %}Type{% endtrans %}</th>
+                                            <th>{% trans %}Manufacturer{% endtrans %}</th>
+                                            <th>{% trans %}Model{% endtrans %}</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {%  for device in received %}
+                                            <tr>
+                                                {% if is_admin or is_manager %}
+                                                    <th scope="row">{{ device.id.value }}</th>
+                                                {% endif %}
+                                                <td>{{ device.type.value }}</td>
+                                                <td>{{ device.subtype.value }}</td>
+                                                <td>{{ device.manufacturer.value }}</td>
+                                                <td>{{ device.model.value }}</td>
+                                                <td><a href="{{ device.url.value }}" target="_blank">{% trans %}view in DeviceHub{% endtrans %}</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div><!--/received-->
+                {% endif %}
+
+                {# TODO assigned donors
+                <div class="post donor">
+                    <div class="post-content">
+                        <h2 class="entry-title">
+                            <a href="">{% trans %}Donors{% endtrans %}</a>
+                        </h2>
+                        <div class="entry-summary">
+                            <div class="widget">
+                                <div class="latest-posts">
+                                    <div class="media">
+                                        <div class="pull-left">
+                                            <a href="#"><img class="img-responsive" style="max-height: 70px" src="{{ base_path }}/themes/custom/transferhub/images/blog/girl.jpg" alt=""></a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h3 class="entry-title" style="float: right; font-size: 28px;"><strong>5</strong> desktops</h3>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="pull-left">
+                                            <a href="#"><img class="img-responsive" style="max-height: 70px" src="{{ base_path }}/themes/custom/transferhub/images/blog/post2.jpg" alt=""></a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h3 class="entry-title" style="float: right;font-size: 28px;"><strong>5</strong> desktops</h3>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="pull-left">
+                                            <a href="#"><img class="img-responsive" style="max-height: 70px"  src="{{ base_path }}/themes/custom/transferhub/images/blog/post3.jpg" alt=""></a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h3 class="entry-title" style="float: right;font-size: 28px;"><strong>5</strong> desktops</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/donations-->
+                #}
+
+            </div><!--/content-->
+
+            <div id="sidebar" class="col-md-4">
+                <div class="widget-area">
+
+                    {% if use_existing_organization %}
+                        {{ content.field_organization_existing }}
+                    {% else %}
+                        {{ content.field_organization_new }}
+                    {% endif %}
+
+                    {{ sidebar_project }}
+
+                </div>
+            </div> <!--/Sidebar-->
+        </div>
+    </div>
+</div><!--/#main-blog-->
+
+{% macro printStars(rate) %}
+    {% if not rate is null %}
+        <div class="rating-select">
+            {% for i in 5..1 %}
+                {% if i > rate %}
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                {% else %}
+                    <span class="glyphicon glyphicon-star"></span>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% if  content.field_questionary[0] or content.field_use[0] or content.field_maintenance[0] or content.field_reuse_return[0] %}
+    <div id="blog-breadcrumb" class="page-breadcrumb project-footer practices">
+        <div class="container">
+            <div class="row">
+                <h2 class="entry-title title">
+                    {% trans %}Good donation practices{% endtrans %}
+                </h2>
+                <div class="entry-summary">
+                    <div class="widget">
+                        <div class="latest-posts">
+                            <div class="media">
+                                <div class="pull-left">
+                                   <h2>{{ node.field_questionary.getFieldDefinition().get("label") }}</h2>
+                                    {{ node.field_questionary.getFieldDefinition().get("description") }}
+                                </div>
+                                <div class="pull-right">
+                                    {{ _self.printStars(content.field_questionary[0]["#markup"]) }}
+                                </div>
+                            </div>
+                            <div class="media">
+                                <div class="pull-left">
+                                    <h2>{{ node.field_use.getFieldDefinition().get("label") }}</h2>
+                                    {{ node.field_use.getFieldDefinition().get("description") }}
+                                </div>
+                                <div class="pull-right">
+                                    {{ _self.printStars(content.field_use[0]["#markup"]) }}
+                                </div>
+                            </div>
+                            <div class="media">
+                                <div class="pull-left">
+                                    <h2>{{ node.field_maintenance.getFieldDefinition().get("label") }}</h2>
+                                    {{ node.field_maintenance.getFieldDefinition().get("description") }}
+                                </div>
+                                <div class="pull-right">
+                                    {{ _self.printStars(content.field_maintenance[0]["#markup"]) }}
+                                </div>
+                            </div>
+                            <div class="media">
+                                <div class="pull-left">
+                                    <h2>{{ node.field_reuse_return.getFieldDefinition().get("label") }}</h2>
+                                    {{ node.field_reuse_return.getFieldDefinition().get("description") }}
+                                </div>
+                                <div class="pull-right">
+                                    {{ _self.printStars(content.field_reuse_return[0]["#markup"]) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div><!--/.page-breadcrumb-->
+{% endif %}
+
+
+
+
+

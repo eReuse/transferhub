@@ -1,0 +1,8 @@
+<div  style="padding-left: 15px; padding-right: 15px;text-align: left;" class="entry-content">
+    <img class="img-responsive" src="/reutilitza/sites/default/files/iniciativa.png" alt="">
+    <h2 class="entry-title"><a href="blog-detail.html">{{ node.title.value|raw }}</a></h2>
+    <p>
+        {{ node.field_short_description.value }}
+    </p>
+</div>
+

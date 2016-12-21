@@ -1,0 +1,7 @@
+transferhub_analytics:
+  version: 1.x
+  js:
+    js/transferhub_analytics.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings

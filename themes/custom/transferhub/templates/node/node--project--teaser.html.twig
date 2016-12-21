@@ -1,0 +1,13 @@
+{{ content.field_image }}
+<h2><a href="{{ url }}" rel="bookmark">{{ label }}</a></h2>
+<p>
+    {{ content.field_short_description }}
+</p>
+<p>
+    <strong>{{ required_devices }} {% trans %}required devices{% endtrans %}</strong>
+</p>
+
+ {% if is_my_projects_page %}
+     <span class="label {{ state_lbl_class }} pull-right">{{ state_text }}</span>
+ {% endif %}
+

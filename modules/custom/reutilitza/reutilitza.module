@@ -1,0 +1,34 @@
+<?php
+
+function reutilitza_user_login($account) {
+
+    //Manage custom redirections after login
+    
+    //Manager
+    //Redirect to content overview page
+    if (in_array("manager",array_values($account->getRoles())))
+    {
+        $response = new Symfony\Component\HttpFoundation\RedirectResponse( base_path() . "project-administration");
+        $response->send();
+        return;
+    }
+
+    //Authenticated user (receiver)
+    //Redirect to front
+    if (in_array("authenticated",array_values($account->getRoles())) && !in_array("administrator",array_values($account->getRoles())))
+    {
+        // We want to redirect user on login.
+        if ($_SESSION['transferhub_vote']['returnUrl'])
+            //it comes from Facebook login -> redirection to Project's page
+            $returnUrl = $_SESSION['transferhub_vote']['returnUrl'];
+        else
+            $returnUrl = base_path();
+
+        $response = new Symfony\Component\HttpFoundation\RedirectResponse($returnUrl);
+        $response->send();
+        return;
+    }
+
+    //Site Administrator
+    //no redirection required yet
+}

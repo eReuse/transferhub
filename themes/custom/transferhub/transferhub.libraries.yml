@@ -1,0 +1,50 @@
+global-styling:
+  css:
+    theme:
+      css/style.css: {}
+
+bootstrap-social:
+  css:
+    theme:
+      bootstrap/bootstrap-social/bootstrap-social.css: {}
+
+bootstrap-scripts:
+  js:
+    bootstrap/js/affix.js: {}
+    bootstrap/js/alert.js: {}
+    bootstrap/js/button.js: {}
+    bootstrap/js/carousel.js: {}
+    bootstrap/js/collapse.js: {}
+    bootstrap/js/dropdown.js: {}
+    bootstrap/js/modal.js: {}
+    bootstrap/js/tooltip.js: {}
+    bootstrap/js/popover.js: {}
+    bootstrap/js/scrollspy.js: {}
+    bootstrap/js/tab.js: {}
+    bootstrap/js/transition.js: {}
+
+two-doors-scripts:
+  js:
+    #js/two_doors/html5shiv.js: {browsers: {IE: 'lte IE 9'}}
+    js/two_doors/respond.min.js: {browsers: {IE: 'lte IE 9', '!IE': false}}
+    #http://maps.google.com/maps/api/js?sensor=true: {type: external, scope: footer}
+    #js/two_doors/gmaps.js: { scope: footer}
+    js/two_doors/jquery.parallax.js: { scope: footer}
+    js/two_doors/jquery.prettyPhoto.js: { scope: footer}
+    js/two_doors/jquery.isotope.min.js: { scope: footer}
+    js/two_doors/jquery.appear.js: { scope: footer}
+    js/two_doors/jquery.inview.min.js: { scope: footer}
+    js/two_doors/jquery.countTo.js: { scope: footer}
+    js/two_doors/jquery.nav.js: {scope: footer}
+    js/two_doors/smooth-scroll.js: { scope: footer}
+    js/two_doors/main.js: { scope: footer}
+
+#two-doors-styling: //todo
+#  css:
+#    theme:
+#      css/two_doors/font-awesome.min.css: {}
+#      css/two_doors/font.css: {}
+#      css/two_doors/prettyPhoto.css: {}
+#      css/two_doors/main.css: {}
+#      css/two_doors/responsive.css: {}
+
